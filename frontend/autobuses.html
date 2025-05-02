@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>MANTI-BUS | Autobuses</title>
+  <link rel="stylesheet" href="styles/autobuses.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">🚌 MANTI-BUS</div>
+    <div class="menu">
+      <input type="text" id="buscador" placeholder="Buscar unidad..." />
+      <button onclick="buscarUnidad()">Buscar</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="tabla">
+      <table id="tablaBuses">
+        <thead>
+          <tr>
+            <th>Unidad</th>
+            <th>KM Inicial</th>
+            <th>KM Final</th>
+            <th>Número de Viajes</th>
+            <th>Vida</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTabla"></tbody>
+      </table>
+    </section>
+
+    <section class="formulario">
+      <h2>Registrar Autobús</h2>
+      <input type="hidden" id="busId">
+      <label>Unidad:</label><input type="text" id="unidad" />
+      <label>KM Inicial:</label><input type="number" id="kmInicial" />
+      <label>KM Final:</label><input type="number" id="kmFinal" />
+      <label>Número de Viajes:</label><input type="number" id="numViajes" />
+      <div class="acciones">
+        <button id="guardarBtn">💾 Guardar</button>
+
+        <button id="limpiarBtn">🔁 Limpiar</button>
+
+    </section>
+  </main>
+
+  <script src="js/autobuses.js"></script>
+</body>
+</html>

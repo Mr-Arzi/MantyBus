@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>MANTI-BUS | Repuestos</title>
+  <link rel="stylesheet" href="styles/repuestos.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">🚌 MANTI-BUS</div>
+    <div class="menu">
+      <input type="text" id="buscador" placeholder="Buscar repuesto..." />
+      <button onclick="buscarRepuesto()">Buscar</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="tabla">
+      <table id="tablaRepuestos">
+        <thead>
+          <tr>
+            <th>Repuesto</th>
+            <th>Unidad</th>
+            <th>Código</th>
+            <th>Cantidad</th>
+            <th>Fecha</th>
+            <th>Vida</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTabla"></tbody>
+      </table>
+    </section>
+
+    <section class="formulario">
+      <h2>Registrar Repuesto</h2>
+      <input type="hidden" id="repuestoId">
+      <label>Nombre del repuesto:</label><input type="text" id="nombre" />
+      <label>Número de unidad:</label><input type="text" id="unidad" />
+      <label>Código:</label><input type="text" id="codigo" />
+      <label>Cantidad:</label><input type="number" id="cantidad" />
+      <label>Fecha:</label><input type="date" id="fecha" />
+      <div class="acciones">
+        <button id="guardarBtn">💾 Guardar</button>
+        <button id="limpiarBtn">🔁 Limpiar</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/repuestos.js"></script>
+</body>
+</html>

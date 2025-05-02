@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MANTI-BUS Login</title>
+  <link rel="stylesheet" href="styles/index.css" />
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <h1>MANTI-BUS</h1>
+      <img src="assets/bus-icon.png" alt="bus icon" class="icon"/>
+      <form id="login-form">
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" name="username" required />
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required />
+        <button type="submit">Ingresar</button>
+      </form>
+      <p id="login-message"></p>
+    </div>
+  </div>
+
+  <script src="js/renderer.js"></script>
+</body>
+</html>

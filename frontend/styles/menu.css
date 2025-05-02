@@ -1,0 +1,67 @@
+.menu-body {
+    background-color: #f2ebd9;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .menu-header {
+    background-color: #393a5a;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .logo .title {
+    font-weight: bold;
+    font-size: 24px;
+    color: #ffb400;
+  }
+  
+  .menu-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+  }
+  
+  .menu-icon {
+    font-size: 22px;
+  }
+  
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 40px;
+    justify-items: center;
+  }
+  
+  .menu-item {
+    background-color: #dcd7c6;
+    padding: 20px;
+    border-radius: 12px;
+    width: 120px;
+    height: 120px;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+  }
+  
+  .menu-item img {
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  
+  .menu-item span {
+    display: block;
+    font-size: 13px;
+  }
+  
