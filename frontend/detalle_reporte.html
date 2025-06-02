@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle del Reporte | MANTI-BUS</title>
+  <link rel="stylesheet" href="styles/detalle_reporte.css" />
+</head>
+<body class="menu-body">
+
+  
+  <header class="menu-header">
+    <div class="menu-bar">
+      <div class="menu-logo">
+        <img src="icons/bus-icono.png" alt="logo" class="icon" />
+        <span class="logo-text">MANTI-BUS</span>
+      </div>
+
+  
+    <div class="acciones">
+      <button onclick="exportarPDF()">📄 Exportar PDF</button>
+      <button id="guardarBtn">💾 Guardar</button>
+      <button id="eliminarBtn">🗑️ Eliminar</button>
+      <button onclick="window.location.href='reportes.html'">↩️ Regresar</button>
+    </div>
+
+
+    </div>
+  </header>
+
+
+
+
+  <main>
+    <section class="bloque">
+      <h3>📝 Datos Generales</h3>
+      <label>Fecha de mantenimiento: <input type="date" id="fecha_registro" /></label>
+      <label>Número de autobús: <select id="busId"></select></label>
+      <label>Kilometraje actual: <input type="number" id="kilometraje_actual" /></label>
+      <label>Tipo de mantenimiento: <input type="text" id="tipo_mantenimiento" /></label>
+      <label>Responsable: <input type="text" id="responsable" /></label>
+      <label>Verificado: <input type="checkbox" id="verificado" /></label>
+    </section>
+
+    <section class="bloque">
+      <h3>🛠️ Descripción de la Falla</h3>
+      <label>Síntomas: <textarea id="sintomas"></textarea></label>
+      <label>Condiciones en que ocurrió: <textarea id="condiciones"></textarea></label>
+    </section>
+
+    <section class="bloque">
+      <h3>🔧 Solución Aplicada</h3>
+      <label>Tiempo de reparación: <input type="text" id="tiempo_reparacion" /></label>
+      <label>Repuestos usados: <textarea id="repuestos_usados"></textarea></label>
+      <label>Reparaciones realizadas: <textarea id="reparaciones_realizadas"></textarea></label>
+    </section>
+
+    <section class="bloque">
+      <h3>🧪 Pruebas y Verificación</h3>
+      <label>Aprobación del supervisor: <input type="text" id="aprobacion_supervisor" /></label>
+      <label>Próximo mantenimiento: <input type="date" id="proximo_mantenimiento" /></label>
+      <label>Resultados de las pruebas: <textarea id="resultados_pruebas"></textarea></label>
+    </section>
+  </main>
+
+  <script src="js/detalle_reporte.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+    const toggleBtn = document.getElementById('menu-toggle');
+    const menuList = document.getElementById('menu-list');
+    toggleBtn.addEventListener('click', () => {
+      menuList.classList.toggle('hidden');
+    });
+    document.addEventListener('click', (e) => {
+      if (!toggleBtn.contains(e.target) && !menuList.contains(e.target)) {
+        menuList.classList.add('hidden');
+      }
+    });
+  </script>
+
+</body>
+</html>

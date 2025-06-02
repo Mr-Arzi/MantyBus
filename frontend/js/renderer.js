@@ -13,6 +13,8 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {e
   const messageEl = document.getElementById('login-message');
 
   if (res.ok) {
+     localStorage.setItem('usuarioLogueado', JSON.stringify(data));
+     
     messageEl.style.color = 'green';
     messageEl.textContent = 'Inicio de sesión exitoso';
     setTimeout(() => {

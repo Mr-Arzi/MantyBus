@@ -6,40 +6,92 @@
   <link rel="stylesheet" href="styles/menu.css">
 </head>
 <body class="menu-body">
-  <header class="menu-header">
-    <div class="logo">
-      <img src="assets/bus-icon.png" alt="logo" class="icon" />
-      <span class="title">MANTI-BUS</span>
+
+
+<header class="menu-header">
+  <div class="menu-bar">
+    <div class="menu-logo">
+      <img src="icons/icon_autobuses.png" alt="logo" />
+      <span class="logo-text">MANTI-BUS</span>
     </div>
-    <div class="menu-label">
-      <span>MENU</span>
-      <div class="menu-icon">☰</div>
+
+    <div class="menu-dropdown">
+      <button id="menu-toggle">
+        MENU <span class="menu-icon">☰</span>
+      </button>
+      <ul id="menu-list" class="hidden">
+        <li><a href="autobuses.html">Autobuses</a></li>
+        <li><a href="conductores.html">Conductores</a></li>
+        <li><a href="repuestos.html">Repuestos</a></li>
+        <li><a href="mantenimiento.html">Mantenimientos</a></li>
+        <li><a href="reportes.html">Reportes</a></li>
+        <li><a href="estadisticas.html">Estadísticas</a></li>
+        <li><a href="crear_usuarios.html">Crear usuario</a></li>
+      </ul>
     </div>
-  </header>
+  </div>
+</header>
+
+
+
 
   <main class="menu-grid">
 
     <a href="autobuses.html" class="menu-item">
-      <img src="assets/bus-yellow.png">
+      <img src="icons/icon_autobuses.png" alt="Autobuses"/>
       <span>Autobuses</span>
     </a>
 
     <a href="conductores.html" class="menu-item">
-      <img src="assets/bus-yellow.png">
+      <img src="icons/icon_conductores.png" alt="Conductores"/>
       <span>Conductores</span>
     </a>
     
     <a href="repuestos.html" class="menu-item">
-      <img src="assets/bus-yellow.png">
+      <img src="icons/icon_repuestos.png" alt="Repuestos"/>
       <span>Repuestos</span>
     </a>
 
-   
-    <div class="menu-item"><img src="assets/schedule.png"><span>Programar mantenimiento</span></div>
-    <div class="menu-item"><img src="assets/report.png"><span>Reportes de mantenimientos</span></div>
-    <div class="menu-item"><img src="assets/stats.png"><span>Estadísticas</span></div>
+    <a href="mantenimiento.html" class="menu-item">
+      <img src="icons/icon_mantenimientos.png" alt="Mantenimmientos"/>
+      <span>Mantenimmientos</span>
+    </a>
+
+    <a href="reportes.html" class="menu-item">
+      <img src="icons/icon_reportes.png" alt="Reportes"/>
+      <span>Reportes de mantenimientos</span>
+    </a>
+
+    <a href="estadisticas.html" class="menu-item">
+      <img src="icons/icon_estadisticas.png" alt="Estadisticas"/>
+      <span>Estadisticas</span>
+    </a>
+
+    <a href="crear_usuarios.html" class="menu-item">
+      <img src="icons/icon_conductores.png" alt="crear_usuarios">
+      <span>Crear usuario</span>
+    </a>
+
+    
   </main>
+
+
+<script>
+  const toggleBtn = document.getElementById('menu-toggle');
+  const menuList = document.getElementById('menu-list');
+
+  toggleBtn.addEventListener('click', () => {
+    menuList.classList.toggle('hidden');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!toggleBtn.contains(e.target) && !menuList.contains(e.target)) {
+      menuList.classList.add('hidden');
+    }
+  });
+</script>
+
 </body>
-
-
 </html>
+
+

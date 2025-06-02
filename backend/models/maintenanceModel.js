@@ -1,30 +1,22 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/sequelize');
 
-const SparePart = sequelize.define('SparePart', {
-  nombre: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
+const Maintenance = sequelize.define('Maintenance', {
 
-  codigo: {
+ 
+ 
+  
+
+  motivo: {
     type: DataTypes.STRING,
-    allowNull: false
-  },
-  cantidad: {
-    type: DataTypes.INTEGER,
     allowNull: false
   },
   fecha: {
     type: DataTypes.DATEONLY,
     allowNull: false
   },
-  vida: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
 
-    busId: {
+  busId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -33,9 +25,10 @@ const SparePart = sequelize.define('SparePart', {
     }
   }
 
+
 }, {
-  tableName: 'spare_parts',
+  tableName: 'maintenances',
   timestamps: false
 });
 
-module.exports = SparePart;
+module.exports = Maintenance;

@@ -7,6 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
   cargarConductores();
 });
 
+
+async function cargarUnidades() {
+  const respuesta = await fetch('http://localhost:3000/api/buses');
+  const buses = await respuesta.json();
+  const select = document.getElementById('busId');
+  buses.forEach(bus => {
+    const opcion = document.createElement('option');
+    opcion.value = bus.id;
+    opcion.textContent = `${bus.unidad} (ID: ${bus.id})`;
+    select.appendChild(opcion);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', cargarUnidades);
+
+
+
+
 async function cargarConductores() {
   const res = await fetch(apiURL);
   const drivers = await res.json();
@@ -31,9 +49,9 @@ async function guardarConductor() {
   const id = document.getElementById('driverId').value;
   const nombre = document.getElementById('nombre').value;
   const telefono = document.getElementById('telefono').value;
-  const unidad = document.getElementById('unidad').value;
+  const busId = document.getElementById('busId').value;
 
-  const conductor = { nombre, telefono, unidad };
+  const conductor = { nombre, telefono, busId };
   const url = id ? `${apiURL}/${id}` : apiURL;
   const method = id ? 'PUT' : 'POST';
 

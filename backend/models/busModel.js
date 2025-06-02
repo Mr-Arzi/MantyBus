@@ -2,6 +2,8 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/sequelize');
 
 const Bus = sequelize.define('Bus', {
+  id:{type: DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+
   unidad: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -23,6 +25,12 @@ const Bus = sequelize.define('Bus', {
     type: DataTypes.STRING,
     defaultValue: 'Activa'
   }
-});
+
+},
+{
+  tableName: 'buses',
+  timestamps: false
+}
+);
 
 module.exports = Bus;

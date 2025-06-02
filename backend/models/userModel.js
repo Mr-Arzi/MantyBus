@@ -15,6 +15,10 @@ const User = sequelize.define('User', {
   password: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  role: {
+    type: DataTypes.STRING,
+    defaultValue: 'usuario'
   }
 }, {
   tableName: 'users',
@@ -24,5 +28,8 @@ const User = sequelize.define('User', {
 module.exports = {
   User,
   getAllUsers: async () => await User.findAll(),
-  getUserByUsername: async (username) => await User.findOne({ where: { username } })
+  getUserByUsername: async (username) => await User.findOne({ where: { username } }),
+  createUser: async (username, password, role = 'usuario') => {
+    return await User.create({ username, password, role });
+  }
 };

@@ -2,23 +2,22 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>MANTI-BUS | Conductores</title>
-  <link rel="stylesheet" href="styles/conductores.css" />
+  <title>MANTI-BUS | Programar Mantenimiento</title>
+  <link rel="stylesheet" href="styles/mantenimiento.css" />
 </head>
 <body class="menu-body">
 
-
+  
   <header class="menu-header">
     <div class="menu-bar">
       <div class="menu-logo">
-        <img src="icons/bus-icono.png" alt="logo" />
+        <img src="icons/bus-icono.png" alt="logo" class="icon" />
         <span class="logo-text">MANTI-BUS</span>
       </div>
 
       <div class="menu-dropdown">
         <button id="menu-toggle">
-          MENU <span class="menu-icon">☰</span>
-        </button>
+          MENU <span class="menu-icon">☰</span></button>
         <ul id="menu-list" class="hidden">
           <li><a href="menu.html">🏠 Menú Principal</a></li>
           <li><a href="autobuses.html">Autobuses</a></li>
@@ -33,26 +32,19 @@
     </div>
   </header>
 
-
   <section class="busqueda">
-    <input type="text" id="buscador" placeholder="Buscar conductor..." />
+    <input type="text" id="buscador" placeholder="Buscar unidad..." />
     <button onclick="buscarUnidad()">Buscar</button>
   </section>
 
-
-  
-
-
-
-
   <main>
     <section class="tabla">
-      <table id="tablaConductores">
+      <table id="tablaMantenimientos">
         <thead>
           <tr>
-            <th>Nombre</th>
-            <th>Teléfono</th>
-            <th>Unidad</th>
+            <th>Número de Unidad</th>
+            <th>Fecha de Mantenimiento</th>
+            <th>Motivo</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -61,11 +53,11 @@
     </section>
 
     <section class="formulario">
-      <h2>Registrar Conductor</h2>
-      <input type="hidden" id="driverId">
-      <label>Nombre del conductor:</label><input type="text" id="nombre" />
-      <label>Número de teléfono:</label><input type="text" id="telefono" />
+      <h2>Programar Mantenimiento</h2>
+      <input type="hidden" id="mantenimientoId">
       <label>Número de unidad:</label><select id="busId"></select>
+      <label>Motivo de mantenimiento:</label><input type="text" id="motivo" />
+      <label>Fecha de mantenimiento:</label><input type="date" id="fecha" />
       <div class="acciones">
         <button id="guardarBtn">💾 Guardar</button>
         <button id="limpiarBtn">🔁 Limpiar</button>
@@ -73,26 +65,19 @@
     </section>
   </main>
 
+  <script src="js/mantenimiento.js"></script>
 
-
-    <script>
+  <script>
     const toggleBtn = document.getElementById('menu-toggle');
     const menuList = document.getElementById('menu-list');
-
     toggleBtn.addEventListener('click', () => {
       menuList.classList.toggle('hidden');
     });
-
     document.addEventListener('click', (e) => {
       if (!toggleBtn.contains(e.target) && !menuList.contains(e.target)) {
         menuList.classList.add('hidden');
       }
     });
   </script>
-
-  <script src="js/conductores.js"></script>
-
-
-
 </body>
 </html>

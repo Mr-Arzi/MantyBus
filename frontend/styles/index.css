@@ -60,3 +60,34 @@ body {
     color: red;
     margin-top: 10px;
   }
+
+  .logo-bloque {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.logo-text {
+  font-size: 32px;
+  font-weight: bold;
+  color: #ffb400;
+  text-shadow: 2px 2px 2px black;
+  margin-bottom: 10px;
+}
+
+.logo-pin {
+  width: 80px;
+  height: 100px;
+  margin: 0 auto;
+  background-color: #e9ebd6;
+  border: 3px solid #ffb400;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-pin img {
+  width: 40px;
+  transform: rotate(-45deg);
+}

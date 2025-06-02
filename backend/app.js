@@ -1,8 +1,17 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-//const sequelize = require('./config/db'); // conexión a PostgreSQL
+
+
 const sequelize = require('./config/sequelize'); // conexión a PostgreSQL
+require('./models/associations');
+
+require('./models/busModel');
+require('./models/driverModel');
+require('./models/maintenanceModel');
+require('./models/sparePartModel');
+require('./models/maintenanceReportModel'); 
+require('./models/associations');
 
 dotenv.config();
 console.log('DATABASE_URL:', process.env.DATABASE_URL);
@@ -28,9 +37,22 @@ app.use('/api/drivers', driverRoutes);
 const sparePartRoutes = require('./routes/sparePartRoutes');
 app.use('/api/repuestos', sparePartRoutes);
 
+//Rutas para mantenimientos
+const maintenanceRoutes = require('./routes/maintenanceRoutes');
+app.use('/api/mantenimientos', maintenanceRoutes);
+
+//Rutas para reportes de mantenimientos
+const maintenanceReportRoutes = require('./routes/maintenanceReportRoutes');
+app.use('/api/reportes', maintenanceReportRoutes);
+
+//Rutas para graficos
+const statsRoutes = require('./routes/statsRoutes');
+app.use('/api', statsRoutes);
+
 
 
 // Sincronizar DB
+
 sequelize.sync().then(() => {
   console.log('📦 Base de datos sincronizada correctamente');
 }).catch(err => {
@@ -38,3 +60,4 @@ sequelize.sync().then(() => {
 });
 
 module.exports = app;
+

@@ -1,14 +1,29 @@
 const Driver = require('../models/driverModel');
+const Bus = require('../models/busModel');
 
 exports.getAllDrivers = async (req, res) => {
-  const drivers = await Driver.findAll();
-  res.json(drivers);
+  try {
+    const drivers = await Driver.findAll({
+      include: [{ model: Bus }]
+    });
+    res.json(drivers);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al obtener conductores' });
+  }
 };
-
 exports.createDriver = async (req, res) => {
   try {
-    const { nombre, telefono, unidad } = req.body;
-    const nuevo = await Driver.create({ nombre, telefono, unidad });
+    const { nombre, telefono, unidad, busId } = req.body;
+
+    // Validar que el bus exista
+    const bus = await Bus.findByPk(busId);
+    if (!bus) {
+      return res.status(400).json({ error: 'El autobús no existe' });
+    }
+
+    // Crear chofer solo si el bus existe
+    const nuevo = await Driver.create({ nombre, telefono, unidad, busId });
     res.status(201).json(nuevo);
   } catch (err) {
     res.status(400).json({ error: err.message });

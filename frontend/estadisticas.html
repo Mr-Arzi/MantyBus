@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>MANTI-BUS | Conductores</title>
-  <link rel="stylesheet" href="styles/conductores.css" />
+  <title>MANTI-BUS | Estadísticas</title>
+  <link rel="stylesheet" href="styles/estadisticas.css" />
 </head>
 <body class="menu-body">
 
@@ -11,7 +11,7 @@
   <header class="menu-header">
     <div class="menu-bar">
       <div class="menu-logo">
-        <img src="icons/bus-icono.png" alt="logo" />
+        <img src="icons/bus-icono.png" alt="logo" class="icon" />
         <span class="logo-text">MANTI-BUS</span>
       </div>
 
@@ -34,47 +34,25 @@
   </header>
 
 
-  <section class="busqueda">
-    <input type="text" id="buscador" placeholder="Buscar conductor..." />
-    <button onclick="buscarUnidad()">Buscar</button>
-  </section>
 
-
-  
-
-
-
-
-  <main>
-    <section class="tabla">
-      <table id="tablaConductores">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Teléfono</th>
-            <th>Unidad</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="cuerpoTabla"></tbody>
-      </table>
+  <main style="display: flex; gap: 1rem;">
+    <section style="width: 65%;">
+      <canvas id="barChart" height="150"></canvas>
+      <canvas id="lineChart" height="150" style="margin-top: 2rem;"></canvas>
     </section>
 
-    <section class="formulario">
-      <h2>Registrar Conductor</h2>
-      <input type="hidden" id="driverId">
-      <label>Nombre del conductor:</label><input type="text" id="nombre" />
-      <label>Número de teléfono:</label><input type="text" id="telefono" />
-      <label>Número de unidad:</label><select id="busId"></select>
-      <div class="acciones">
-        <button id="guardarBtn">💾 Guardar</button>
-        <button id="limpiarBtn">🔁 Limpiar</button>
-      </div>
+    <section class="formulario" style="width: 30%;">
+      <h3>GENERAR GRÁFICAS</h3>
+      <label for="fechaInicio">Fecha inicio:</label>
+      <input type="date" id="fechaInicio" />
+      <label for="fechaFin">Fecha fin:</label>
+      <input type="date" id="fechaFin" />
+      <button onclick="generarGraficas()">📊 Generar Gráficos</button>
     </section>
   </main>
 
-
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/estadisticas.js"></script>
     <script>
     const toggleBtn = document.getElementById('menu-toggle');
     const menuList = document.getElementById('menu-list');
@@ -89,10 +67,5 @@
       }
     });
   </script>
-
-  <script src="js/conductores.js"></script>
-
-
-
 </body>
 </html>
