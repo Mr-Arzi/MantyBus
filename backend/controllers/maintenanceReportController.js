@@ -1,60 +1,26 @@
-const Report = require('../models/maintenanceReportModel');
-const Bus = require('../models/busModel'); 
+const service = require('../services/maintenanceReportService');
 
 exports.getAllReports = async (req, res) => {
-  try {
-    const reports = await Report.findAll({
-      include: [{ model: Bus }]
-    });
-    res.json(reports);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Error al obtener reportes' });
-  }
+  const data = await service.getAllReports();
+  res.json(data);
 };
 
 exports.getReportById = async (req, res) => {
-  const report = await Report.findByPk(req.params.id);
-  if (!report) return res.status(404).json({ error: 'Reporte no encontrado' });
-  res.json(report);
+  const data = await service.getReportById(req.params.id);
+  res.json(data);
 };
 
 exports.createReport = async (req, res) => {
-  try {
-    const { busId, ...resto } = req.body;
-
-    // ✅ Verificar si existe el bus
-    const bus = await Bus.findByPk(busId);
-    if (!bus) {
-      return res.status(400).json({ error: 'El autobús no existe' });
-    }
-
-    // ✅ Crear el reporte con los demás campos
-    const nuevo = await Report.create({ busId, ...resto });
-    res.status(201).json(nuevo);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+  const data = await service.createReport(req.body);
+  res.status(201).json(data);
 };
 
 exports.updateReport = async (req, res) => {
-  try {
-    const report = await Report.findByPk(req.params.id);
-    if (!report) return res.status(404).json({ error: 'No encontrado' });
-    await report.update(req.body);
-    res.json(report);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+  await service.updateReport(req.params.id, req.body);
+  res.sendStatus(204);
 };
 
 exports.deleteReport = async (req, res) => {
-  try {
-    const report = await Report.findByPk(req.params.id);
-    if (!report) return res.status(404).json({ error: 'No encontrado' });
-    await report.destroy();
-    res.json({ message: 'Eliminado' });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+  await service.deleteReport(req.params.id);
+  res.sendStatus(204);
 };

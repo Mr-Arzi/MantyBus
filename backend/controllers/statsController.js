@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-const Reporte = require('../models/statsModel');
+const Reporte = require('../models/maintenanceReportModel');
 const { Op } = require('sequelize');
 
 const obtenerEstadisticas = async (req, res) => {

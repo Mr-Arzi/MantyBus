@@ -53,7 +53,7 @@ app.use('/api', statsRoutes);
 
 // Sincronizar DB
 
-sequelize.sync().then(() => {
+sequelize.sync({alter: true}).then(() => {
   console.log('📦 Base de datos sincronizada correctamente');
 }).catch(err => {
   console.error('❌ Error al sincronizar la base de datos:', err);
