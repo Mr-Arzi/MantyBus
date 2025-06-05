@@ -1,16 +1,19 @@
 const repo = require('../repositories/maintenanceReportRepository');
+const MaintenanceReportDto = require('../dtos/maintenanceReport.dto');
 
 async function getAllReports() {
-  return await repo.getAll();
+  const reports = await repo.getAll();
+  return reports.map(report => new MaintenanceReportDto(report));
 }
 
 async function getReportById(id) {
-  return await repo.getById(id);
+  const report = await repo.getById(id);
+  return report ? new MaintenanceReportDto(report) : null;
 }
 
 async function createReport(data) {
-  // Aquí podrías validar datos antes de guardar
-  return await repo.create(data);
+  const report = await repo.create(data);
+  return new MaintenanceReportDto(report);
 }
 
 async function updateReport(id, data) {

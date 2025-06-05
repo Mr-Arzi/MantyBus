@@ -1,15 +1,19 @@
 const repo = require('../repositories/sparePartRepository');
+const SparePartDto = require('../dtos/sparePart.dto');
 
 async function getAll() {
-  return await repo.getAll();
+  const repuestos = await repo.getAll();
+  return repuestos.map(repuesto => new SparePartDto(repuesto));
 }
 
 async function getById(id) {
-  return await repo.getById(id);
+  const repuesto = await repo.getById(id);
+  return repuesto ? new SparePartDto(repuesto) : null;
 }
 
 async function create(data) {
-  return await repo.create(data);
+  const repuesto = await repo.create(data);
+  return new SparePartDto(repuesto);
 }
 
 async function update(id, data) {

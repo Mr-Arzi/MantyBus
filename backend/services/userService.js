@@ -1,16 +1,20 @@
 const repo = require('../repositories/userRepository');
+const UserDto = require('../dtos/user.dto');
 
 async function getAll() {
-  return await repo.getAll();
+  const users = await repo.getAll();
+  return users.map(user => new UserDto(user));
 }
 
 async function getById(id) {
   console.log("📌 ID recibido:", id);
-  return await repo.getById(id);
+  const user = await repo.getById(id);
+  return user ? new UserDto(user) : null;
 }
 
 async function create(data) {
-  return await repo.create(data);
+  const user = await repo.create(data);
+  return new UserDto(user);
 }
 
 async function update(id, data) {
@@ -22,8 +26,6 @@ async function remove(id) {
 }
 
 async function login(username, password) {
-
-
   const user = await repo.getByUsername(username);
   
   if (!user) return null;

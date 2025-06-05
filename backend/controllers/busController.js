@@ -1,4 +1,6 @@
 const service = require('../services/busService');
+const BusDto = require('../dtos/bus.dto');
+
 
 exports.getAll = async (req, res) => {
   const data = await service.getAll();

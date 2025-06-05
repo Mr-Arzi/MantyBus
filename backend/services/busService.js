@@ -1,23 +1,27 @@
 const repo = require('../repositories/busRepository');
+const BusDto = require('../dtos/bus.dto');
 
 async function getAll() {
-  return await repo.getAll();
+  const buses = await repo.getAll();
+  return buses.map(bus => new BusDto(bus)); 
 }
 
 async function getById(id) {
-  return await repo.getById(id);
+  const bus = await repo.getById(id);
+  return bus ? new BusDto(bus) : null;
 }
 
 async function create(data) {
-  return await repo.create(data);
+  const bus = await repo.create(data);
+  return new BusDto(bus);
 }
 
 async function update(id, data) {
-  return await repo.update(id, data);
+  await repo.update(id, data);
 }
 
 async function remove(id) {
-  return await repo.remove(id);
+  await repo.remove(id);
 }
 
 module.exports = {
