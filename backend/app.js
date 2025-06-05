@@ -21,9 +21,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Rutas existentes
-const userRoutes = require('./routes/userRoutes');
-app.use('/api', userRoutes);
+
 
 //  Rutas para autobuses
 const busRoutes = require('./routes/busRoutes');
@@ -49,6 +47,9 @@ app.use('/api/reportes', maintenanceReportRoutes);
 const statsRoutes = require('./routes/statsRoutes');
 app.use('/api', statsRoutes);
 
+// Rutas existentes
+const userRoutes = require('./routes/userRoutes');
+app.use('/api', userRoutes);
 
 
 // Sincronizar DB

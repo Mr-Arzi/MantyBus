@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/maintenanceController');
+const maintenanceController = require('../controllers/maintenanceController');
 
-router.get('/', controller.getAllMaintenances);
-router.post('/', controller.createMaintenance);
-router.put('/:id', controller.updateMaintenance);
-router.delete('/:id', controller.deleteMaintenance);
+router.get('/', maintenanceController.getAll);
+router.get('/:id', maintenanceController.getById);
+router.post('/', maintenanceController.create);
+router.put('/:id', maintenanceController.update);
+router.delete('/:id', maintenanceController.remove);
 
 module.exports = router;

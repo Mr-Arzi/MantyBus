@@ -25,11 +25,4 @@ const User = sequelize.define('User', {
   timestamps: false
 });
 
-module.exports = {
-  User,
-  getAllUsers: async () => await User.findAll(),
-  getUserByUsername: async (username) => await User.findOne({ where: { username } }),
-  createUser: async (username, password, role = 'usuario') => {
-    return await User.create({ username, password, role });
-  }
-};
+module.exports = User;

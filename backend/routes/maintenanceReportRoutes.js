@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/maintenanceReportController');
+const maintenanceReportController = require('../controllers/maintenanceReportController');
 
-router.get('/', controller.getAllReports);
-router.get('/:id', controller.getReportById);
-router.post('/', controller.createReport);
-router.put('/:id', controller.updateReport);
-router.delete('/:id', controller.deleteReport);
+router.get('/', maintenanceReportController.getAllReports);
+router.get('/:id', maintenanceReportController.getReportById);
+router.post('/', maintenanceReportController.createReport);
+router.put('/:id', maintenanceReportController.updateReport);
+router.delete('/:id', maintenanceReportController.deleteReport);
 
 module.exports = router;

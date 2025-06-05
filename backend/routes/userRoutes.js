@@ -24,10 +24,14 @@ module.exports = router;
 */
 const express = require('express');
 const router = express.Router();
-const { getUsers, login, createUser } = require('../controllers/userController');
+const userController = require('../controllers/userController');
 
-router.get('/users', getUsers);
-router.post('/login', login);
-router.post('/users', createUser);
+router.get('/', userController.getAll);
+router.get('/:id', userController.getById);
+router.post('/', userController.create);
+router.put('/:id', userController.update);
+router.delete('/:id', userController.remove);
+router.post('/login', userController.login);
+
 
 module.exports = router;

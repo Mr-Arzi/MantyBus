@@ -1,53 +1,26 @@
-const SparePart = require('../models/sparePartModel');
-const Bus = require('../models/busModel');
+const service = require('../services/sparePartService');
 
-exports.getAllSpareParts = async (req, res) => {
-  try {
-    const repuestos = await SparePart.findAll({
-      include: [{ model: Bus }]
-    });
-    res.json(repuestos);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Error al obtener repuestos' });
-  }
+exports.getAll = async (req, res) => {
+  const data = await service.getAll();
+  res.json(data);
 };
 
-exports.createSparePart = async (req, res) => {
-  try {
-    const { nombre, codigo, cantidad, fecha, vida, busId } = req.body;
-
-    // ✅ Verificar que el bus exista
-    const bus = await Bus.findByPk(busId);
-    if (!bus) {
-      return res.status(400).json({ error: 'El autobús no existe' });
-    }
-
-    // ✅ Crear el repuesto
-    const nuevo = await SparePart.create({ nombre, codigo, cantidad, fecha, vida, busId });
-    res.status(201).json(nuevo);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
-exports.updateSparePart = async (req, res) => {
-  try {
-    const repuesto = await SparePart.findByPk(req.params.id);
-    if (!repuesto) return res.status(404).json({ error: 'No encontrado' });
-    await repuesto.update(req.body);
-    res.json(repuesto);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+exports.getById = async (req, res) => {
+  const data = await service.getById(req.params.id);
+  res.json(data);
 };
 
-exports.deleteSparePart = async (req, res) => {
-  try {
-    const repuesto = await SparePart.findByPk(req.params.id);
-    if (!repuesto) return res.status(404).json({ error: 'No encontrado' });
-    await repuesto.destroy();
-    res.json({ message: 'Eliminado' });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+exports.create = async (req, res) => {
+  const data = await service.create(req.body);
+  res.status(201).json(data);
+};
+
+exports.update = async (req, res) => {
+  await service.update(req.params.id, req.body);
+  res.sendStatus(204);
+};
+
+exports.remove = async (req, res) => {
+  await service.remove(req.params.id);
+  res.sendStatus(204);
 };

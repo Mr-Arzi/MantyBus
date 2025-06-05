@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/sparePartController');
+const sparePartController = require('../controllers/sparePartController');
 
-router.get('/', controller.getAllSpareParts);
-router.post('/', controller.createSparePart);
-router.put('/:id', controller.updateSparePart);
-router.delete('/:id', controller.deleteSparePart);
+router.get('/', sparePartController.getAll);
+router.get('/:id', sparePartController.getById);
+router.post('/', sparePartController.create);
+router.put('/:id', sparePartController.update);
+router.delete('/:id', sparePartController.remove);
 
 module.exports = router;

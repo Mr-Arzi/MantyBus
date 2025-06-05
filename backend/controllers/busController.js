@@ -1,42 +1,27 @@
-const Bus = require('../models/busModel');
+const service = require('../services/busService');
 
-exports.getAllBuses = async (req, res) => {
-  try {
-    const buses = await Bus.findAll();
-    res.json(buses);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.getAll = async (req, res) => {
+  const data = await service.getAll();
+  res.json(data);
 };
 
-exports.createBus = async (req, res) => {
-  try {
-    const { unidad, kmInicial, kmFinal, numViajes } = req.body;
-    const nuevoBus = await Bus.create({ unidad, kmInicial, kmFinal, numViajes });
-    res.status(201).json(nuevoBus);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+exports.getById = async (req, res) => {
+  const data = await service.getById(req.params.id);
+  res.json(data);
 };
 
-exports.updateBus = async (req, res) => {
-  try {
-    const bus = await Bus.findByPk(req.params.id);
-    if (!bus) return res.status(404).json({ error: 'Bus no encontrado' });
-    await bus.update(req.body);
-    res.json(bus);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+exports.create = async (req, res) => {
+  const data = await service.create(req.body);
+  res.status(201).json(data);
 };
 
-exports.deleteBus = async (req, res) => {
-  try {
-    const bus = await Bus.findByPk(req.params.id);
-    if (!bus) return res.status(404).json({ error: 'Bus no encontrado' });
-    await bus.destroy();
-    res.json({ message: 'Bus eliminado' });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+exports.update = async (req, res) => {
+  await service.update(req.params.id, req.body);
+  res.sendStatus(204);
 };
+
+exports.remove = async (req, res) => {
+  await service.remove(req.params.id);
+  res.sendStatus(204);
+};
+
