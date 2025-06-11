@@ -1,4 +1,7 @@
 const service = require('../services/maintenanceService');
+const MaintenanceRequestDTO = require('../dtos/request/maintenanceRequest.dto');
+const MaintenanceResponseDTO = require('../dtos/response/maintenanceResponse.dto');
+const { validateMaintenanceRequest } = require('../validators/maintenanceValidator');
 
 exports.getAll = async (req, res) => {
   const data = await service.getAll();
@@ -11,8 +14,17 @@ exports.getById = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
-  const data = await service.create(req.body);
-  res.status(201).json(data);
+try {
+    validateMaintenanceRequest(req.body);
+    const requestDto = new MaintenanceRequestDTO(req.body);
+
+    const nuevoMantenimiento = await service.create(requestDto);
+    const responseDto = new MaintenanceResponseDTO(nuevoMantenimiento);
+
+    res.status(201).json(responseDto);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 exports.update = async (req, res) => {

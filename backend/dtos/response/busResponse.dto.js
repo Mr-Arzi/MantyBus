@@ -1,6 +1,6 @@
-// backend/dtos/bus.dto.js
+// backend/dtos/response/busResponse.dto.js
 
-class BusDto {
+class BusResponseDTO {
   constructor({ id, unidad, kmInicial, kmFinal, numViajes, vida }) {
     this.id = id;
     this.unidad = unidad;
@@ -11,4 +11,4 @@ class BusDto {
   }
 }
 
-module.exports = BusDto;
+module.exports = BusResponseDTO;

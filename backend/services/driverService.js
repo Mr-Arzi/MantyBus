@@ -1,5 +1,5 @@
 const repo = require('../repositories/driverRepository');
-const DriverDto = require('../dtos/driver.dto');
+const DriverDto = require('../dtos/response/driverResponse.dto');
 
 async function getAll() {
   const drivers = await repo.getAll();

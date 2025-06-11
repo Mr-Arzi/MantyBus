@@ -1,4 +1,7 @@
 const service = require('../services/driverService');
+const DriverRequestDTO = require('../dtos/request/driverRequest.dto');
+const DriverResponseDTO = require('../dtos/response/driverResponse.dto');
+const { validateDriverRequest } = require('../validators/driverValidator');
 
 exports.getAll = async (req, res) => {
   const data = await service.getAll();
@@ -11,8 +14,17 @@ exports.getById = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
-  const data = await service.create(req.body);
-  res.status(201).json(data);
+    try {
+    validateDriverRequest(req.body);
+    const requestDto = new DriverRequestDTO(req.body);
+
+    const newDriver = await service.create(requestDto);
+    const responseDto = new DriverResponseDTO(newDriver);
+
+    res.status(201).json(responseDto);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 exports.update = async (req, res) => {
@@ -24,3 +36,5 @@ exports.remove = async (req, res) => {
   await service.remove(req.params.id);
   res.sendStatus(204);
 };
+
+

@@ -1,5 +1,5 @@
 const repo = require('../repositories/busRepository');
-const BusDto = require('../dtos/bus.dto');
+const BusDto = require('../dtos/response/busResponse.dto');
 
 async function getAll() {
   const buses = await repo.getAll();

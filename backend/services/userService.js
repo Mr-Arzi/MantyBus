@@ -1,5 +1,5 @@
 const repo = require('../repositories/userRepository');
-const UserDto = require('../dtos/user.dto');
+const UserDto = require('../dtos/response/userResponse.dto');
 
 async function getAll() {
   const users = await repo.getAll();

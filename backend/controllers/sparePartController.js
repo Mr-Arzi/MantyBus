@@ -1,4 +1,7 @@
 const service = require('../services/sparePartService');
+const SparePartRequestDTO = require('../dtos/request/sparePartRequest.dto');
+const SparePartResponseDTO = require('../dtos/response/sparePartResponse.dto');
+const { validateSparePartRequest } = require('../validators/sparePartValidator');
 
 exports.getAll = async (req, res) => {
   const data = await service.getAll();
@@ -11,8 +14,17 @@ exports.getById = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
-  const data = await service.create(req.body);
-  res.status(201).json(data);
+  try {
+    validateSparePartRequest(req.body);
+    const requestDto = new SparePartRequestDTO(req.body);
+
+    const nuevoRepuesto = await service.create(requestDto);
+    const responseDto = new SparePartResponseDTO(nuevoRepuesto);
+
+    res.status(201).json(responseDto);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 exports.update = async (req, res) => {

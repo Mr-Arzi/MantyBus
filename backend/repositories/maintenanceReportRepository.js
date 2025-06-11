@@ -1,5 +1,8 @@
 const MaintenanceReport = require('../models/maintenanceReportModel');
 
+/**
+* El código define operaciones CRUD para un modelo MaintenanceReport en JavaScript.
+*/
 const getAll = () => MaintenanceReport.findAll();
 const getById = (id) => MaintenanceReport.findByPk(id);
 const create = (data) => MaintenanceReport.create(data);

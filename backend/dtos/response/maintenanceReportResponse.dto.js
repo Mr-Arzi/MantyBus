@@ -1,6 +1,6 @@
-// backend/dtos/maintenanceReport.dto.js
+// backend/dtos/response/maintenanceReportResponse.dto.js
 
-class MaintenanceReportDto {
+class MaintenanceReportResponseDTO {
   constructor({
     id,
     fecha_registro,
@@ -16,7 +16,8 @@ class MaintenanceReportDto {
     aprobacion_supervisor,
     proximo_mantenimiento,
     resultados_pruebas,
-    busId
+    busId,
+    creadoEn
   }) {
     this.id = id;
     this.fecha_registro = fecha_registro;
@@ -33,7 +34,8 @@ class MaintenanceReportDto {
     this.proximo_mantenimiento = proximo_mantenimiento;
     this.resultados_pruebas = resultados_pruebas;
     this.busId = busId;
+    this.creadoEn = creadoEn;
   }
 }
 
-module.exports = MaintenanceReportDto;
+module.exports = MaintenanceReportResponseDTO;

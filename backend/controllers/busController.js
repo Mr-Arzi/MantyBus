@@ -1,5 +1,7 @@
 const service = require('../services/busService');
-const BusDto = require('../dtos/bus.dto');
+const BusRequestDTO = require('../dtos/request/busRequest.dto');
+const BusResponseDTO = require('../dtos/response/busResponse.dto');
+const { validateBusRequest } = require('../validators/busValidator');
 
 
 exports.getAll = async (req, res) => {
@@ -13,8 +15,25 @@ exports.getById = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
-  const data = await service.create(req.body);
-  res.status(201).json(data);
+  try {
+    // Validar datos de entrada
+    validateBusRequest(req.body);
+
+    // Crear DTO de entrada
+    const requestDto = new BusRequestDTO(req.body);
+
+    // Crear autobús en el servicio
+    const newBus = await service.create(requestDto);
+
+    // Crear DTO de respuesta
+    const responseDto = new BusResponseDTO(newBus);
+
+    // Respuesta con código 201
+    res.status(201).json(responseDto);
+
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 exports.update = async (req, res) => {

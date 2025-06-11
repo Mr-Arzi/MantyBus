@@ -47,6 +47,11 @@ app.use('/api/reportes', maintenanceReportRoutes);
 const statsRoutes = require('./routes/statsRoutes');
 app.use('/api', statsRoutes);
 
+//Rutas para inventario
+const inventoryRoutes = require('./routes/inventoryRoutes');
+app.use('/api/inventory', inventoryRoutes);
+
+
 // Rutas existentes
 const userRoutes = require('./routes/userRoutes');
 app.use('/api', userRoutes);

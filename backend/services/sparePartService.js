@@ -1,5 +1,5 @@
 const repo = require('../repositories/sparePartRepository');
-const SparePartDto = require('../dtos/sparePart.dto');
+const SparePartDto = require('../dtos/response/sparePartResponse.dto');
 
 async function getAll() {
   const repuestos = await repo.getAll();
