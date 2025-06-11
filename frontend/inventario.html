@@ -2,22 +2,21 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>MANTI-BUS | Conductores</title>
-  <link rel="stylesheet" href="styles/conductores.css" />
+  <title>MANTI-BUS | Inventario Repuestos</title>
+  <link rel="stylesheet" href="styles/inventario.css" />
 </head>
 <body class="menu-body">
-
 
   <header class="menu-header">
     <div class="menu-bar">
       <div class="menu-logo">
-        <img src="icons/bus-icono.png" alt="logo" />
+        <img src="icons/bus-icono.png" alt="logo" class="icon" />
         <span class="logo-text">MANTI-BUS</span>
       </div>
 
       <div class="menu-dropdown">
         <button id="menu-toggle">
-          CONDUCTORES <span class="menu-icon">☰</span>
+          INVENTARIO <span class="menu-icon">☰</span>
         </button>
         <ul id="menu-list" class="hidden">
           <li><a href="menu.html">🏠 Menú Principal</a></li>
@@ -34,49 +33,56 @@
     </div>
   </header>
 
-
   <section class="busqueda">
-    <input type="text" id="buscador" placeholder="Buscar conductor..." />
-    <button onclick="buscarUnidad()">Buscar</button>
+    <input id="buscador" type="text" placeholder="Buscar Repuesto..." />
+    <button onclick="buscarRepuesto()">🔍 Buscar</button>
   </section>
-
-
-  
-
-
-
 
   <main>
     <section class="tabla">
-      <table id="tablaConductores">
+      <table id="tabla-inventario">
         <thead>
           <tr>
-            <th>Nombre</th>
-            <th>Teléfono</th>
-            <th>Unidad</th>
+            <th>Repuesto</th>
+            <th>Código</th>
+            <th>Cantidad</th>
+            <th>Fecha</th>
+            <th>Ubicación</th>
             <th>Acciones</th>
           </tr>
         </thead>
-        <tbody id="cuerpoTabla"></tbody>
+        <tbody></tbody>
       </table>
     </section>
 
     <section class="formulario">
-      <h2>Registrar Conductor</h2>
-      <input type="hidden" id="driverId">
-      <label>Nombre del conductor:</label><input type="text" id="nombre" />
-      <label>Número de teléfono:</label><input type="text" id="telefono" />
-      <label>Número de unidad:</label><select id="busId"></select>
-      <div class="acciones">
-        <button id="guardarBtn">💾 Guardar</button>
-        <button id="limpiarBtn">🔁 Limpiar</button>
-      </div>
+      <h2>Registrar Repuesto</h2>
+      <form id="form-inventario">
+        <input type="hidden" name="id" id="repuesto-id" />
+
+        <label>Nombre del repuesto:</label>
+        <input name="nombre" required />
+        <label>Código:</label>
+        <input name="codigo" required />
+        <label>Cantidad:</label>
+        <input name="cantidad_disponible" type="number" required />
+        <label>Fecha:</label>
+        <input name="fecha_ingreso" type="date" required />
+        <label>Ubicación:</label>
+        <input type="text" id="ubicacion" name="ubicacion" required />
+
+        <div class="acciones">
+          <button type="submit" id="btn-guardar">💾 Guardar</button>
+          <button type="button" onclick="cancelarEdicion()">❌ Cancelar</button>
+          <button type="button" onclick="limpiarFormulario()">🧽 Limpiar</button>
+        </div>
+      </form>
     </section>
   </main>
 
+  <script src="js/inventario.js"></script>
 
-
-    <script>
+  <script>
     const toggleBtn = document.getElementById('menu-toggle');
     const menuList = document.getElementById('menu-list');
 
@@ -90,10 +96,5 @@
       }
     });
   </script>
-
-  <script src="js/conductores.js"></script>
-
-
-
 </body>
 </html>
