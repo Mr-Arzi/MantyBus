@@ -1,38 +1,40 @@
-const Driver = require('../models/driverModel');
+const service = require('../services/driverService');
+const DriverRequestDTO = require('../dtos/request/driverRequest.dto');
+const DriverResponseDTO = require('../dtos/response/driverResponse.dto');
+const { validateDriverRequest } = require('../validators/driverValidator');
 
-exports.getAllDrivers = async (req, res) => {
-  const drivers = await Driver.findAll();
-  res.json(drivers);
+exports.getAll = async (req, res) => {
+  const data = await service.getAll();
+  res.json(data);
 };
 
-exports.createDriver = async (req, res) => {
-  try {
-    const { nombre, telefono, unidad } = req.body;
-    const nuevo = await Driver.create({ nombre, telefono, unidad });
-    res.status(201).json(nuevo);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+exports.getById = async (req, res) => {
+  const data = await service.getById(req.params.id);
+  res.json(data);
+};
+
+exports.create = async (req, res) => {
+    try {
+    validateDriverRequest(req.body);
+    const requestDto = new DriverRequestDTO(req.body);
+
+    const newDriver = await service.create(requestDto);
+    const responseDto = new DriverResponseDTO(newDriver);
+
+    res.status(201).json(responseDto);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };
 
-exports.updateDriver = async (req, res) => {
-  try {
-    const driver = await Driver.findByPk(req.params.id);
-    if (!driver) return res.status(404).json({ error: 'No encontrado' });
-    await driver.update(req.body);
-    res.json(driver);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+exports.update = async (req, res) => {
+  await service.update(req.params.id, req.body);
+  res.sendStatus(204);
 };
 
-exports.deleteDriver = async (req, res) => {
-  try {
-    const driver = await Driver.findByPk(req.params.id);
-    if (!driver) return res.status(404).json({ error: 'No encontrado' });
-    await driver.destroy();
-    res.json({ message: 'Eliminado' });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+exports.remove = async (req, res) => {
+  await service.remove(req.params.id);
+  res.sendStatus(204);
 };
+
+

@@ -15,14 +15,14 @@ const User = sequelize.define('User', {
   password: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  role: {
+    type: DataTypes.STRING,
+    defaultValue: 'usuario'
   }
 }, {
   tableName: 'users',
   timestamps: false
 });
 
-module.exports = {
-  User,
-  getAllUsers: async () => await User.findAll(),
-  getUserByUsername: async (username) => await User.findOne({ where: { username } })
-};
+module.exports = User;

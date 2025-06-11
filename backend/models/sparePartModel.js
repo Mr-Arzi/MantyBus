@@ -6,10 +6,7 @@ const SparePart = sequelize.define('SparePart', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  unidad: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
+
   codigo: {
     type: DataTypes.STRING,
     allowNull: false
@@ -25,7 +22,17 @@ const SparePart = sequelize.define('SparePart', {
   vida: {
     type: DataTypes.STRING,
     allowNull: true
+  },
+
+    busId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'buses',
+      key: 'id'
+    }
   }
+
 }, {
   tableName: 'spare_parts',
   timestamps: false

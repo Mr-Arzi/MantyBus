@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>MANTI-BUS | Estadísticas</title>
+  <link rel="stylesheet" href="styles/estadisticas.css" />
+</head>
+<body class="menu-body">
+
+
+  <header class="menu-header">
+    <div class="menu-bar">
+      <div class="menu-logo">
+        <img src="icons/bus-icono.png" alt="logo" class="icon" />
+        <span class="logo-text">MANTI-BUS</span>
+      </div>
+
+      <div class="menu-dropdown">
+        <button id="menu-toggle">
+          ESTADISTICAS <span class="menu-icon">☰</span>
+        </button>
+        <ul id="menu-list" class="hidden">
+          <li><a href="menu.html">🏠 Menú Principal</a></li>
+          <li><a href="autobuses.html">Autobuses</a></li>
+          <li><a href="conductores.html">Conductores</a></li>
+          <li><a href="repuestos.html">Repuestos</a></li>
+          <li><a href="mantenimiento.html">Programar mantenimientos</a></li>
+          <li><a href="reportes.html">Generar reportes</a></li>
+          <li><a href="estadisticas.html">Estadísticas</a></li>
+          <li><a href="crear_usuarios.html">Crear usuario</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+
+  <main style="display: flex; gap: 1rem;">
+    <section style="width: 65%;">
+      <canvas id="barChart" height="150"></canvas>
+      <canvas id="lineChart" height="150" style="margin-top: 2rem;"></canvas>
+    </section>
+
+    <section class="formulario" style="width: 30%;">
+      <h3>GENERAR GRÁFICAS</h3>
+      <label for="fechaInicio">Fecha inicio:</label>
+      <input type="date" id="fechaInicio" />
+      <label for="fechaFin">Fecha fin:</label>
+      <input type="date" id="fechaFin" />
+      <button onclick="generarGraficas()">📊 Generar Gráficos</button>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/estadisticas.js"></script>
+    <script>
+    const toggleBtn = document.getElementById('menu-toggle');
+    const menuList = document.getElementById('menu-list');
+
+    toggleBtn.addEventListener('click', () => {
+      menuList.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!toggleBtn.contains(e.target) && !menuList.contains(e.target)) {
+        menuList.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
