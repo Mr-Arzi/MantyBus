@@ -88,7 +88,7 @@ async function guardarMantenimiento() {
 }
 
 function editarMantenimiento(m) {
-  document.getElementById('mantenimientoId').value = m.id;
+  document.getElementById('mantenimientoId').value = m.busId;
   document.getElementById('unidad').value = m.unidad;
   document.getElementById('motivo').value = m.motivo;
   document.getElementById('fecha').value = m.fecha;
