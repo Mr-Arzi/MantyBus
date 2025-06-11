@@ -1,53 +1,38 @@
-const SparePart = require('../models/sparePartModel');
-const Bus = require('../models/busModel');
+const service = require('../services/sparePartService');
+const SparePartRequestDTO = require('../dtos/request/sparePartRequest.dto');
+const SparePartResponseDTO = require('../dtos/response/sparePartResponse.dto');
+const { validateSparePartRequest } = require('../validators/sparePartValidator');
 
-exports.getAllSpareParts = async (req, res) => {
+exports.getAll = async (req, res) => {
+  const data = await service.getAll();
+  res.json(data);
+};
+
+exports.getById = async (req, res) => {
+  const data = await service.getById(req.params.id);
+  res.json(data);
+};
+
+exports.create = async (req, res) => {
   try {
-    const repuestos = await SparePart.findAll({
-      include: [{ model: Bus }]
-    });
-    res.json(repuestos);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Error al obtener repuestos' });
+    validateSparePartRequest(req.body);
+    const requestDto = new SparePartRequestDTO(req.body);
+
+    const nuevoRepuesto = await service.create(requestDto);
+    const responseDto = new SparePartResponseDTO(nuevoRepuesto);
+
+    res.status(201).json(responseDto);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };
 
-exports.createSparePart = async (req, res) => {
-  try {
-    const { nombre, codigo, cantidad, fecha, vida, busId } = req.body;
-
-    // ✅ Verificar que el bus exista
-    const bus = await Bus.findByPk(busId);
-    if (!bus) {
-      return res.status(400).json({ error: 'El autobús no existe' });
-    }
-
-    // ✅ Crear el repuesto
-    const nuevo = await SparePart.create({ nombre, codigo, cantidad, fecha, vida, busId });
-    res.status(201).json(nuevo);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
-exports.updateSparePart = async (req, res) => {
-  try {
-    const repuesto = await SparePart.findByPk(req.params.id);
-    if (!repuesto) return res.status(404).json({ error: 'No encontrado' });
-    await repuesto.update(req.body);
-    res.json(repuesto);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+exports.update = async (req, res) => {
+  await service.update(req.params.id, req.body);
+  res.sendStatus(204);
 };
 
-exports.deleteSparePart = async (req, res) => {
-  try {
-    const repuesto = await SparePart.findByPk(req.params.id);
-    if (!repuesto) return res.status(404).json({ error: 'No encontrado' });
-    await repuesto.destroy();
-    res.json({ message: 'Eliminado' });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+exports.remove = async (req, res) => {
+  await service.remove(req.params.id);
+  res.sendStatus(204);
 };

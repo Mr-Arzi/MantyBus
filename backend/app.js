@@ -21,9 +21,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Rutas existentes
-const userRoutes = require('./routes/userRoutes');
-app.use('/api', userRoutes);
+
 
 //  Rutas para autobuses
 const busRoutes = require('./routes/busRoutes');
@@ -49,11 +47,19 @@ app.use('/api/reportes', maintenanceReportRoutes);
 const statsRoutes = require('./routes/statsRoutes');
 app.use('/api', statsRoutes);
 
+//Rutas para inventario
+const inventoryRoutes = require('./routes/inventoryRoutes');
+app.use('/api/inventory', inventoryRoutes);
+
+
+// Rutas existentes
+const userRoutes = require('./routes/userRoutes');
+app.use('/api', userRoutes);
 
 
 // Sincronizar DB
 
-sequelize.sync().then(() => {
+sequelize.sync({alter: true}).then(() => {
   console.log('📦 Base de datos sincronizada correctamente');
 }).catch(err => {
   console.error('❌ Error al sincronizar la base de datos:', err);

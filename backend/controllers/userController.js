@@ -1,35 +1,44 @@
-const { User, getUserByUsername } = require('../models/userModel');
+const service = require('../services/userService');
 
-
-
-const getUsers = async (req, res) => {
-  const users = await User.findAll();
-  res.json(users);
+exports.getAll = async (req, res) => {
+  const data = await service.getAll();
+  res.json(data);
 };
 
-const login = async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ where: { username } });
+exports.getById = async (req, res) => {
+  const data = await service.getById(req.params.id);
+  res.json(data);
+};
 
-  if (!user || user.password !== password) {
-    return res.status(401).json({ error: 'Credenciales incorrectas' });
+exports.create = async (req, res) => {
+  const data = await service.create(req.body);
+  res.status(201).json(data);
+};
+
+exports.update = async (req, res) => {
+  await service.update(req.params.id, req.body);
+  res.sendStatus(204);
+};
+
+exports.remove = async (req, res) => {
+  await service.remove(req.params.id);
+  res.sendStatus(204);
+};
+
+exports.login = async (req, res) => {
+   
+
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ message: "Usuario y contraseña requeridos" });
   }
 
-  res.json({ username: user.username, role: user.role });
-};
-
-const createUser = async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    const exists = await User.findOne({ where: { username } });
-    if (exists) return res.status(400).json({ error: 'Ya existe ese usuario' });
-
-    const nuevo = await User.create({ username, password });
-    res.json(nuevo);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Error al crear usuario' });
+  const user = await service.login(username, password);
+  if (!user) {
+    return res.status(401).json({ message: "Credenciales incorrectas" });
   }
+
+  res.json(user);
 };
 
-module.exports = { getUsers, login, createUser };

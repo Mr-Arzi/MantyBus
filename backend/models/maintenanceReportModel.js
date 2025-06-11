@@ -3,6 +3,8 @@ const sequelize = require('../config/sequelize');
 const Bus = require('./busModel'); 
 
 
+/* Este fragmento de código define un modelo Sequelize para una entidad `MaintenanceReport` 
+en una aplicación Node.js que usa el ORM Sequelize. Analicemos las partes importantes de este código: */
 const MaintenanceReport = sequelize.define('MaintenanceReport', {
 
 

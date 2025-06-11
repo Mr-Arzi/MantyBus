@@ -1,54 +1,38 @@
-const Maintenance = require('../models/maintenanceModel');
-const Bus = require('../models/busModel'); 
+const service = require('../services/maintenanceService');
+const MaintenanceRequestDTO = require('../dtos/request/maintenanceRequest.dto');
+const MaintenanceResponseDTO = require('../dtos/response/maintenanceResponse.dto');
+const { validateMaintenanceRequest } = require('../validators/maintenanceValidator');
 
-exports.getAllMaintenances = async (req, res) => {
-  try {
-    const mantenimientos = await Maintenance.findAll({
-      include: [{ model: Bus }]
-    });
-    res.json(mantenimientos);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Error al obtener mantenimientos' });
+exports.getAll = async (req, res) => {
+  const data = await service.getAll();
+  res.json(data);
+};
+
+exports.getById = async (req, res) => {
+  const data = await service.getById(req.params.id);
+  res.json(data);
+};
+
+exports.create = async (req, res) => {
+try {
+    validateMaintenanceRequest(req.body);
+    const requestDto = new MaintenanceRequestDTO(req.body);
+
+    const nuevoMantenimiento = await service.create(requestDto);
+    const responseDto = new MaintenanceResponseDTO(nuevoMantenimiento);
+
+    res.status(201).json(responseDto);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };
 
-exports.createMaintenance = async (req, res) => {
-  try {
-    const { unidad, motivo, fecha, busId } = req.body;
-
-    // ✅ Validar que el autobús exista
-    const bus = await Bus.findByPk(busId);
-    if (!bus) {
-      return res.status(400).json({ error: 'El autobús no existe' });
-    }
-
-    // ✅ Crear el mantenimiento
-    const nuevo = await Maintenance.create({ unidad, motivo, fecha, busId });
-    res.status(201).json(nuevo);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+exports.update = async (req, res) => {
+  await service.update(req.params.id, req.body);
+  res.sendStatus(204);
 };
 
-exports.updateMaintenance = async (req, res) => {
-  try {
-    const mantenimiento = await Maintenance.findByPk(req.params.id);
-    if (!mantenimiento) return res.status(404).json({ error: 'No encontrado' });
-    await mantenimiento.update(req.body);
-    res.json(mantenimiento);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
-
-exports.deleteMaintenance = async (req, res) => {
-  try {
-    const mantenimiento = await Maintenance.findByPk(req.params.id);
-    if (!mantenimiento) return res.status(404).json({ error: 'No encontrado' });
-    await mantenimiento.destroy();
-    res.json({ message: 'Eliminado' });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+exports.remove = async (req, res) => {
+  await service.remove(req.params.id);
+  res.sendStatus(204);
 };
