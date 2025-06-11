@@ -78,7 +78,7 @@ async function guardarRepuesto() {
 function editarRepuesto(rep) {
   document.getElementById('repuestoId').value = rep.id;
   document.getElementById('nombre').value = rep.nombre;
-  document.getElementById('unidad').value = rep.unidad;
+  document.getElementById('unidad').value = rep.busId;
   document.getElementById('codigo').value = rep.codigo;
   document.getElementById('cantidad').value = rep.cantidad;
   document.getElementById('fecha').value = rep.fecha;

@@ -74,7 +74,7 @@ function editarConductor(driver) {
   document.getElementById('driverId').value = driver.id;
   document.getElementById('nombre').value = driver.nombre;
   document.getElementById('telefono').value = driver.telefono;
-  document.getElementById('unidad').value = driver.unidad;
+  document.getElementById('unidad').value = driver.busId;
 }
 
 async function eliminarConductor(id) {
